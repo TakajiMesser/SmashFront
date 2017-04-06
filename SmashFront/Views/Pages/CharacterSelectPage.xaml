@@ -1,0 +1,95 @@
+﻿<Page
+      xmlns:local="clr-namespace:SmashFront.Views.Pages"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+      xmlns:Controls="clr-namespace:SmashFront.Views.Controls"
+      x:Class="SmashFront.Views.Pages.CharacterSelectPage" 
+      mc:Ignorable="d" 
+      Title="CharacterSelectPage" Background="Black" Opacity="0.0">
+    <Page.Resources>
+        <ImageBrush x:Key="BattlefieldBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/battlefield_by_daveartwork.png"/>
+        <ImageBrush x:Key="FinalDestinationBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/final_destination.png"/>
+        <ImageBrush x:Key="Bowser" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Bowser.png"/>
+        <ImageBrush x:Key="DonkeyKong" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/DonkeyKong.png"/>
+        <ImageBrush x:Key="DrMario" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/DrMario.png"/>
+        <ImageBrush x:Key="Falco" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Falco.png"/>
+        <ImageBrush x:Key="Falcon" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Falcon.png"/>
+        <ImageBrush x:Key="Fox" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Fox.png"/>
+        <ImageBrush x:Key="GameAndWatch" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/GameAndWatch.png"/>
+        <ImageBrush x:Key="Ganon" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Ganon.png"/>
+        <ImageBrush x:Key="IceClimbers" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/IceClimbers.png"/>
+        <ImageBrush x:Key="Jigglypuff" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Jigglypuff.png"/>
+        <ImageBrush x:Key="Kirby" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Kirby.png"/>
+        <ImageBrush x:Key="Link" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Link.png"/>
+        <ImageBrush x:Key="Luigi" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Luigi.png"/>
+        <ImageBrush x:Key="Mario" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Mario.png"/>
+        <ImageBrush x:Key="Marth" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Marth.png"/>
+        <ImageBrush x:Key="Mewtwo" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Mewtwo.png"/>
+        <ImageBrush x:Key="Ness" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Ness.png"/>
+        <ImageBrush x:Key="Peach" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Peach.png"/>
+        <ImageBrush x:Key="Pichu" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Pichu.png"/>
+        <ImageBrush x:Key="Pikachu" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Pikachu.png"/>
+        <ImageBrush x:Key="Random" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Random.png"/>
+        <ImageBrush x:Key="Roy" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Roy.png"/>
+        <ImageBrush x:Key="Samus" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Samus.png"/>
+        <ImageBrush x:Key="Yoshi" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Yoshi.png"/>
+        <ImageBrush x:Key="YoungLink" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/YoungLink.png"/>
+        <ImageBrush x:Key="Zelda" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Zelda.png"/>
+    </Page.Resources>
+
+    <Grid x:Name="MenuGrid" Background="{StaticResource FinalDestinationBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <StackPanel x:Name="Settings" Orientation="Horizontal">
+                <TextBlock x:Name="Selection" Margin="12, 30, 320, 8" FontSize="36" Foreground="White"/>
+
+                <Controls:OptionSelector x:Name="ModeOptions" Margin="64, 40, 0, 0"></Controls:OptionSelector>
+                <ComboBox x:Name="Stocks" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
+                <ComboBox x:Name="TimeLimit" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
+                <ComboBox x:Name="Items" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
+            </StackPanel>
+            <Rectangle Name="TopBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <Controls:PlayerWidget x:Name="P1Border" HorizontalAlignment="Stretch" Margin="0, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P2Border" HorizontalAlignment="Stretch" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P3Border" HorizontalAlignment="Stretch" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P4Border" HorizontalAlignment="Stretch" Margin="20, 0, 0, 0"></Controls:PlayerWidget>
+        </StackPanel>
+
+        <Controls:IconGrid x:Name="CharacterIcons" Grid.Row="3" Grid.Column="1"
+                           HorizontalAlignment="Stretch" GrowthAmount="10"
+                           RowCount="2" ColumnCount="13"
+                           IconWidth="100" IconHeight="100"></Controls:IconGrid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
+            <TextBlock Name="Names" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
+            <Rectangle Name="BottomBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"></Rectangle>
+            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
+                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Select</TextBlock>
+
+                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
+                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Back</TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>
+ 

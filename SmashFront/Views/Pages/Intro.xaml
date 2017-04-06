@@ -1,0 +1,52 @@
+﻿<Page
+      xmlns:local="clr-namespace:SmashFront.Views.Pages"
+      x:Class="SmashFront.Views.Pages.Intro"
+      xmlns:src="SmashFront.Views.Pages"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      Title="Intro" Background="Black" Opacity="0.0">
+    
+    <Grid>
+        <Grid.Background>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <MediaElement Name="IntroVideo" 
+                                  Source="C:\Users\Takaji\Documents\Visual Studio 2015\Projects\SmashFront\SmashFront\Resources\Clip2.wmv" 
+                                  Stretch="UniformToFill" Opacity="0.4" LoadedBehavior="Manual"></MediaElement>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Grid.Background>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="56*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="0"  Orientation="Vertical">
+            <TextBlock Name="Caption" 
+                   FontSize="30" FontFamily="Arial"
+                   HorizontalAlignment="Center" 
+                   Foreground="White">SUPER SMASH BROS.</TextBlock>
+            <TextBlock Name="MeleeTitle" 
+                   FontSize="140" FontFamily="Helvetica"
+                   HorizontalAlignment="Center" Foreground="White">MELEE</TextBlock>
+        </StackPanel>
+
+        <TextBlock x:Name="Prompt" 
+                   Grid.Row="2" Grid.Column="0" 
+                   HorizontalAlignment="Center" Foreground="White">PRESS TO START</TextBlock>
+
+        <TextBlock Name="Info" 
+                   Grid.Row="3" Grid.Column="0" 
+                   HorizontalAlignment="Center" Foreground="White">Version 1.2 NTSC</TextBlock>
+        
+    </Grid>
+</Page>

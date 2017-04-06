@@ -14,6 +14,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +49,48 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,6 +111,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\PageHelpers.cs" />
+    <Compile Include="ViewModels\MenuScreen.cs" />
+    <Compile Include="Views\Controls\IconGrid.xaml.cs">
+      <DependentUpon>IconGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\OptionSelector.cs" />
+    <Compile Include="Views\Controls\MenuCursor.cs" />
+    <Compile Include="Views\Controls\Arrow.cs" />
+    <Compile Include="Views\Controls\PlayerWidget.xaml.cs">
+      <DependentUpon>PlayerWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\CharacterSelectPage.xaml.cs">
+      <DependentUpon>CharacterSelectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Intro.xaml.cs">
+      <DependentUpon>Intro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,8 +143,33 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Controls\IconGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\PlayerWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\CharacterSelectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Intro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Characters\BaseCharacter.cs" />
+    <Compile Include="Models\Characters\Fox\Fox.cs" />
+    <Compile Include="Models\Characters\Move.cs" />
+    <Compile Include="Models\Controls\A.cs" />
+    <Compile Include="Models\Stages\BaseStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +195,81 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Items\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\battlefield_by_daveartwork.png" />
+    <Resource Include="Resources\Character Select\Bowser.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\bowser.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\dk.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\drmario.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\falco.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\falcon.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\fox.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\gameandwatch.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\ganon.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\icies.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\jigglypuff.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\kirby.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\link.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\luigi.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\mario.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\marth.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\mewtwo.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\ness.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\peach.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\pichu.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\pikachu.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\roy.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\samus.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\yoshi.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\younglink.png" />
+    <Resource Include="Resources\Character Select\ScreenCaps\zelda.png" />
+    <Resource Include="Resources\up_throw_by_daveartwork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\final_destination.png" />
+    <Resource Include="Resources\Character Select\DrMario.png" />
+    <Resource Include="Resources\Character Select\Falco.png" />
+    <Resource Include="Resources\Character Select\Falcon.png" />
+    <Resource Include="Resources\Character Select\Fox.png" />
+    <Resource Include="Resources\Character Select\Ganon.png" />
+    <Resource Include="Resources\Character Select\Jigglypuff.png" />
+    <Resource Include="Resources\Character Select\Luigi.png" />
+    <Resource Include="Resources\Character Select\Mario.png" />
+    <Resource Include="Resources\Character Select\DonkeyKong.png" />
+    <Resource Include="Resources\Character Select\GameAndWatch.png" />
+    <Resource Include="Resources\Character Select\IceClimbers.png" />
+    <Resource Include="Resources\Character Select\Kirby.png" />
+    <Resource Include="Resources\Character Select\Link.png" />
+    <Resource Include="Resources\Character Select\Marth.png" />
+    <Resource Include="Resources\Character Select\Mewtwo.png" />
+    <Resource Include="Resources\Character Select\Ness.png" />
+    <Resource Include="Resources\Character Select\Peach.png" />
+    <Resource Include="Resources\Character Select\Pichu.png" />
+    <Resource Include="Resources\Character Select\Pikachu.png" />
+    <Resource Include="Resources\Character Select\Roy.png" />
+    <Resource Include="Resources\Character Select\Samus.png" />
+    <Resource Include="Resources\Character Select\Yoshi.png" />
+    <Resource Include="Resources\Character Select\YoungLink.png" />
+    <Resource Include="Resources\Character Select\Zelda.png" />
+    <Resource Include="Resources\Character Select\Random.png" />
+    <Content Include="Resources\Clip1.mp4" />
+    <Content Include="Resources\Clip2.wmv" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
