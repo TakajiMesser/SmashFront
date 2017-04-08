@@ -42,8 +42,8 @@
 
     <Grid x:Name="MenuGrid" Background="{StaticResource FinalDestinationBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="10*"/>
@@ -67,27 +67,20 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-            <Controls:PlayerWidget x:Name="P1Border" HorizontalAlignment="Stretch" Margin="0, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P2Border" HorizontalAlignment="Stretch" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P3Border" HorizontalAlignment="Stretch" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P4Border" HorizontalAlignment="Stretch" Margin="20, 0, 0, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P1Border" PlayerType="Player" Slot="1" Margin="0, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P2Border" PlayerType="Player" Slot="2" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P3Border" PlayerType="Player" Slot="3" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
+            <Controls:PlayerWidget x:Name="P4Border" PlayerType="Player" Slot="4" Margin="20, 0, 0, 0"></Controls:PlayerWidget>
         </StackPanel>
 
         <Controls:IconGrid x:Name="CharacterIcons" Grid.Row="3" Grid.Column="1"
-                           HorizontalAlignment="Stretch" GrowthAmount="10"
-                           RowCount="2" ColumnCount="13"
-                           IconWidth="100" IconHeight="100"></Controls:IconGrid>
+                        HorizontalAlignment="Stretch" GrowthAmount="10"
+                        RowCount="2" ColumnCount="13"
+                        IconWidth="100" IconHeight="100"></Controls:IconGrid>
 
         <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
             <TextBlock Name="Names" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
-            <Rectangle Name="BottomBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"></Rectangle>
-            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
-                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Select</TextBlock>
-
-                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
-                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Back</TextBlock>
-            </StackPanel>
+            <Controls:Border x:Name="BottomBorder"></Controls:Border>
         </StackPanel>
 
     </Grid>

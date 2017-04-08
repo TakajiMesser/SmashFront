@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -28,6 +29,8 @@ namespace SmashFront.Views.Controls
 
     public partial class PlayerWidget : UserControl
     {
+        public string _text = "";
+
         public PlayerTypes PlayerType
         {
             get { return (PlayerTypes)GetValue(PlayerTypeProperty); }
@@ -46,20 +49,71 @@ namespace SmashFront.Views.Controls
         public static readonly DependencyProperty SlotProperty =
             DependencyProperty.Register("Slot", typeof(int), typeof(PlayerWidget), new PropertyMetadata(1));
 
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                _text = value;
+                TextBlock nameText = this.PanelCanvas.Children.OfType<TextBlock>().FirstOrDefault();
+                if (nameText != null)
+                {
+                    nameText.Text = _text;
+                }
+            }
+        }
+
         public PlayerWidget()
         {
             InitializeComponent();
+            this.Loaded += PlayerWidget_Loaded;
+        }
 
-            /* double marginWidth = P1Border.Margin.Left + P1Border.Margin.Right + 
-                                 P2Border.Margin.Left + P2Border.Margin.Right + 
-                                 P3Border.Margin.Left + P3Border.Margin.Right + 
-                                 P4Border.Margin.Left + P4Border.Margin.Right;
-            double availableWidth = MenuGrid.ColumnDefinitions[1].ActualWidth - marginWidth;
+        private void PlayerWidget_Loaded(object sender, RoutedEventArgs e)
+        {
+            Rectangle topBorder = new Rectangle() { Height = 2, Fill = Brushes.Gray };
+            this.PanelCanvas.Children.Add(topBorder);
 
-            P1Border.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(0.0, availableWidth / 4, TimeSpan.FromSeconds(0.8)));
-            P2Border.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(0.0, availableWidth / 4, TimeSpan.FromSeconds(0.8)));
-            P3Border.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(0.0, availableWidth / 4, TimeSpan.FromSeconds(0.8)));
-            P4Border.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(0.0, availableWidth / 4, TimeSpan.FromSeconds(0.8)));*/
+            DoubleAnimation grow = new DoubleAnimation(0.0, this.Width, TimeSpan.FromSeconds(1));
+            if (PlayerType != PlayerTypes.Empty)
+            {
+                grow.Completed += Grow_Completed;
+            }
+            topBorder.BeginAnimation(Rectangle.WidthProperty, grow);
+        }
+
+        private void Grow_Completed(object sender, EventArgs e)
+        {
+            TextBlock nameText = new TextBlock() { Name = "NameText", FontSize = 14, Foreground = Brushes.White, Opacity = 0.0 };
+            this.PanelCanvas.Children.Add(nameText);
+
+            Rectangle bottomBorder = new Rectangle() { Height = 2, Width = this.Width, Fill = Brushes.Gray };
+            this.PanelCanvas.Children.Add(bottomBorder);
+            Canvas.SetLeft(bottomBorder, 0);
+
+            DoubleAnimation move = new DoubleAnimation(0.0, 40.0, new Duration(TimeSpan.FromSeconds(1)));
+            move.Completed += (s, args) =>
+            {
+                foreach (var child in PanelCanvas.Children)
+                {
+                    Rectangle border = child as Rectangle;
+                    if (border != null)
+                    {
+                        if (PlayerType == PlayerTypes.Player)
+                        {
+                            border.Fill = Brushes.CornflowerBlue;
+                        }
+                        else if (PlayerType == PlayerTypes.CPU)
+                        {
+                            border.Fill = Brushes.Red;
+                        }
+                    }
+
+                    nameText.Opacity = 1.0;
+                }
+            };
+
+            bottomBorder.BeginAnimation(Canvas.TopProperty, move);
         }
     }
 }

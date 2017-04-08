@@ -2,34 +2,13 @@
       xmlns:local="clr-namespace:SmashFront.Views.Pages"
       x:Class="SmashFront.Views.Pages.MenuPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:Controls="clr-namespace:SmashFront.Views.Controls"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       Title="MenuPage" Background="Black" Opacity="0.0">
     <Page.Resources>
-        <Storyboard x:Key="TransitionForward" Completed="MenuPage_Transitioned">
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="-500.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="500.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
-
-            <DoubleAnimation Storyboard.TargetName="CurrentOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="TransitionBackward" Completed="MenuPage_Transitioned">
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="500.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="-500.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
-
-            <DoubleAnimation Storyboard.TargetName="CurrentOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
-        </Storyboard>
-
         <ImageBrush x:Key="BattlefieldBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/battlefield_by_daveartwork.png"></ImageBrush>
         <ImageBrush x:Key="UpThrowBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/up_throw_by_daveartwork.png"></ImageBrush>
     </Page.Resources>
@@ -46,28 +25,11 @@
             <ColumnDefinition Width="10*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-            <Canvas Name="TitleCanvas" Margin="6,0,0,10" Height="120">
-                <TextBlock Name="CurrentTitle" FontSize="72" Opacity="1.0" Foreground="White"></TextBlock>
-                <TextBlock Name="NextTitle" FontSize="72" Opacity="0.0" Foreground="White"></TextBlock>
-            </Canvas>
-
-            <Canvas Name="OptionCanvas" Margin="0,0,0,10" Height="220">
-                <StackPanel Name="CurrentOptions" Orientation="Vertical" Opacity="1.0"></StackPanel>
-                <StackPanel Name="NextOptions" Orientation="Vertical" Opacity="0.0"></StackPanel>
-            </Canvas>
-        </StackPanel>
+        <Controls:MenuOptions x:Name="Options" Grid.Row="1" Grid.Column="1"></Controls:MenuOptions>
 
         <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
             <TextBlock Name="OptionDescription" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
-            <Rectangle Name="BottomBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"></Rectangle>
-            <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
-                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Select</TextBlock>
-
-                <Rectangle Height="30" Width="30" Opacity="0.6" Stroke="White"></Rectangle>
-                <TextBlock Margin="15,5,15,0" Opacity="0.6" FontSize="12" Foreground="White">Back</TextBlock>
-            </StackPanel>
+            <Controls:Border x:Name="BottomBorder"></Controls:Border>
         </StackPanel>
     </Grid>
 </Page>

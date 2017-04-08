@@ -18,7 +18,7 @@ namespace SmashFront.ViewModels
 
     public static class MenuScreen
     {
-        public static String GetNameForHeader(MenuScreenHeaders header)
+        public static String GetTitleForHeader(MenuScreenHeaders header)
         {
             switch (header)
             {

@@ -66,13 +66,15 @@ namespace SmashFront.Views.Controls
         public static readonly DependencyProperty GrowthAmountProperty =
             DependencyProperty.Register("GrowthAmount", typeof(int), typeof(IconGrid), new PropertyMetadata(1));
 
-        public List<ImageBrush> Icons { get; set; }
+        public List<string> IconNames { get; set; }
+
+        public event EventHandler<TextEventArgs> HoverTextChanged;
+        public event EventHandler<TextEventArgs> SelectedTextChanged;
 
         public IconGrid()
         {
             InitializeComponent();
 
-            Icons = new List<ImageBrush>();
             this.Loaded += IconGrid_Loaded;
         }
 
@@ -92,7 +94,7 @@ namespace SmashFront.Views.Controls
                 MainGrid.RowDefinitions.Add(rowDefinition);
             }
 
-            for (var i = 0; i < Icons.Count; i++)
+            for (var i = 0; i < IconNames.Count; i++)
             {
                 Rectangle box = new Rectangle();
                 box.Stroke = Brushes.White;
@@ -107,14 +109,17 @@ namespace SmashFront.Views.Controls
                 appear.BeginTime = TimeSpan.FromSeconds(i * 0.05);
                 box.BeginAnimation(Rectangle.OpacityProperty, appear);
 
-                box.Fill = Icons[i];
+                ImageBrush icon = FindResource(IconNames[i]) as ImageBrush;
+                box.Fill = icon;
+                box.Name = IconNames[i];
 
                 box.MouseEnter += Box_MouseEnter;
                 box.MouseLeave += Box_MouseLeave;
+                box.MouseLeftButtonDown += Box_MouseLeftButtonDown;
 
                 DoubleAnimation fade = new DoubleAnimation(1.0, TimeSpan.FromSeconds(0.1));
                 fade.BeginTime = TimeSpan.FromSeconds(0.20 + i * 0.05);
-                Icons[i].BeginAnimation(ImageBrush.OpacityProperty, fade);
+                icon.BeginAnimation(ImageBrush.OpacityProperty, fade);
 
                 Grid.SetRow(box, i % 2);
                 Grid.SetColumn(box, i / 2);
@@ -123,9 +128,10 @@ namespace SmashFront.Views.Controls
             }
         }
 
-        public void Box_MouseEnter(object sender, EventArgs e)
+        private void Box_MouseEnter(object sender, EventArgs e)
         {
             Rectangle box = sender as Rectangle;
+            HoverTextChanged.Invoke(this, new TextEventArgs(box.Name));
 
             box.BeginAnimation(Rectangle.MarginProperty, new ThicknessAnimation(new Thickness(0, GrowthAmount, 0, GrowthAmount), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.1)));
             box.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(IconWidth, IconWidth + GrowthAmount, TimeSpan.FromSeconds(0.1)));
@@ -135,10 +141,32 @@ namespace SmashFront.Views.Controls
         private void Box_MouseLeave(object sender, MouseEventArgs e)
         {
             Rectangle box = sender as Rectangle;
+            HoverTextChanged.Invoke(this, new TextEventArgs(""));
 
             box.BeginAnimation(Rectangle.MarginProperty, new ThicknessAnimation(new Thickness(0, 0, 0, 0), new Thickness(0, GrowthAmount, 0, GrowthAmount), TimeSpan.FromSeconds(0.1)));
             box.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(IconWidth + GrowthAmount, IconWidth, TimeSpan.FromSeconds(0.1)));
             box.BeginAnimation(Rectangle.HeightProperty, new DoubleAnimation(IconHeight + GrowthAmount, IconHeight, TimeSpan.FromSeconds(0.1)));
+        }
+
+        private void Box_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle box = sender as Rectangle;
+            SelectedTextChanged.Invoke(this, new TextEventArgs(box.Name));
+        }
+    }
+
+    public class TextEventArgs : EventArgs
+    {
+        private readonly string _text;
+
+        public TextEventArgs(string text)
+        {
+            _text = text;
+        }
+
+        public string Text
+        {
+            get { return _text; }
         }
     }
 }
