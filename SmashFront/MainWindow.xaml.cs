@@ -1,4 +1,5 @@
 ﻿using SmashFront.Helpers;
+using SmashFront.Models;
 using SmashFront.Views.Pages;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,12 @@ namespace SmashFront
         {
             InitializeComponent();
 
+            /*GameState state = new GameState();
+            state.LaunchGame();
+
+            Application.Current.Shutdown();
+            return;*/
+
             MainFrame.NavigationService.Navigating += MainFrame_Navigating;
             MainFrame.NavigationService.Navigated += NavigationService_Navigated;
             this.KeyDown += MainWindow_KeyDown;
@@ -48,7 +55,7 @@ namespace SmashFront
             {
                 PreviousPageTitle = previousPage.Title;
 
-                if (previousPage.Title == "Intro")
+                /*if (previousPage.Title == "Intro")
                 {
                     _player.MediaEnded += (s, args) =>
                     {
@@ -57,7 +64,7 @@ namespace SmashFront
                     };
                     _player.Play();
                 }
-                /*else
+                else
                 {
                     _player.Stop();
                 }*/

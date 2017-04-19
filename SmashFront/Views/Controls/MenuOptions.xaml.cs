@@ -56,14 +56,14 @@ namespace SmashFront.Views.Controls
             {
                 TextBlock textBlock = new TextBlock() { Text = OptionNames[i], Foreground = Brushes.White, FontSize = 18, Opacity = 0.0, Margin = new Thickness(12, 4, 0, 0) };
 
-                DoubleAnimation appear = new DoubleAnimation(1.0, TimeSpan.FromSeconds(0.1));
+                DoubleAnimation appear = new DoubleAnimation(0.8, TimeSpan.FromSeconds(0.1));
                 appear.BeginTime = TimeSpan.FromSeconds(i * 0.1);
 
                 if (i == OptionNames.Count - 1)
                 {
                     appear.Completed += (s, args) => {
                         _selector.Opacity = 1.0;
-                        Shown.Invoke(this, new EventArgs());
+                        Shown?.Invoke(this, new EventArgs());
                     };
                 }
 
@@ -120,7 +120,7 @@ namespace SmashFront.Views.Controls
             CurrentTitle.Text = NextTitle.Text;
             TitleText = CurrentTitle.Text;
 
-            DoubleAnimation set = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(0.0)));
+            DoubleAnimation set = new DoubleAnimation(0.8, new Duration(TimeSpan.FromSeconds(0.0)));
             CurrentOptions.BeginAnimation(TextBlock.OpacityProperty, set);
 
             TextBlock option = Mouse.DirectlyOver as TextBlock;
@@ -129,7 +129,7 @@ namespace SmashFront.Views.Controls
                 Option_MouseEnter(option, null);
             }
 
-            Transitioned.Invoke(this, new EventArgs());
+            Transitioned?.Invoke(this, new EventArgs());
         }
 
         public void DisableControl()
@@ -151,7 +151,7 @@ namespace SmashFront.Views.Controls
 
         private void Option_MouseEnter(object sender, MouseEventArgs e)
         {
-            Entered.Invoke(sender, e);
+            Entered?.Invoke(sender, e);
 
             if (!this.OptionCanvas.Children.Contains(_selector))
             {
@@ -168,11 +168,22 @@ namespace SmashFront.Views.Controls
             {
                 _selector.BeginBounceAnimation(new Point(location.X - 20.0, location.Y + 8.0));
             }
+
+            foreach (var child in CurrentOptions.Children)
+            {
+                TextBlock option = child as TextBlock;
+
+                DoubleAnimation deselect = new DoubleAnimation(0.8, new Duration(TimeSpan.FromSeconds(0.0)));
+                option.BeginAnimation(TextBlock.OpacityProperty, deselect);
+            }
+
+            DoubleAnimation select = new DoubleAnimation(1.0, new Duration(TimeSpan.FromSeconds(0.0)));
+            senderTextBlock.BeginAnimation(TextBlock.OpacityProperty, select);
         }
 
         private void Option_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Selected.Invoke(sender, e);
+            Selected?.Invoke(sender, e);
         }
     }
 }

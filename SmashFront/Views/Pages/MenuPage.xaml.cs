@@ -33,6 +33,11 @@ namespace SmashFront.Views.Pages
 
             this.Cursor = Cursors.None;
             this.Loaded += MenuPage_Loaded;
+
+            Options.Shown += this.ReenableCursor;
+            Options.Entered += (s, args) => { OptionDescription.Text = MenuScreen.GetDescriptionForOption((s as TextBlock).Text); };
+            Options.Selected += Options_Selected;
+            Options.Transitioned += (s, args) => { MenuGrid.MouseRightButtonDown += MenuPage_MouseRightButtonDown; };
         }
 
         public void MenuPage_Loaded(object sender, RoutedEventArgs e)
@@ -54,11 +59,6 @@ namespace SmashFront.Views.Pages
 
             Options.TitleText = MenuScreen.GetTitleForHeader(currentHeader);
             Options.OptionNames = MenuScreen.GetOptionsForHeader(currentHeader);
-
-            Options.Shown += this.ReenableCursor;
-            Options.Entered += (s, args) => { OptionDescription.Text = MenuScreen.GetDescriptionForOption((s as TextBlock).Text); };
-            Options.Selected += Options_Selected;
-            Options.Transitioned += (s, args) => { MenuGrid.MouseRightButtonDown += MenuPage_MouseRightButtonDown; };
 
             String imageName = MenuScreen.GetImageNameForHeader(currentHeader);
             MenuGrid.Background = FindResource(imageName) as ImageBrush;

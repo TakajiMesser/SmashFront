@@ -33,15 +33,15 @@ namespace SmashFront.Views.Controls
             set { SetValue(RowCountProperty, value); }
         }
 
-        public int IconWidth
+        public double IconWidth
         {
-            get { return (int)GetValue(IconWidthProperty); }
+            get { return (double)GetValue(IconWidthProperty); }
             set { SetValue(IconWidthProperty, value); }
         }
 
-        public int IconHeight
+        public double IconHeight
         {
-            get { return (int)GetValue(IconHeightProperty); }
+            get { return (double)GetValue(IconHeightProperty); }
             set { SetValue(IconHeightProperty, value); }
         }
 
@@ -58,10 +58,10 @@ namespace SmashFront.Views.Controls
             DependencyProperty.Register("RowCount", typeof(int), typeof(IconGrid), new PropertyMetadata(1));
 
         public static readonly DependencyProperty IconWidthProperty =
-            DependencyProperty.Register("IconWidth", typeof(int), typeof(IconGrid), new PropertyMetadata(1));
+            DependencyProperty.Register("IconWidth", typeof(double), typeof(IconGrid), new PropertyMetadata(1.0));
 
         public static readonly DependencyProperty IconHeightProperty =
-            DependencyProperty.Register("IconHeight", typeof(int), typeof(IconGrid), new PropertyMetadata(1));
+            DependencyProperty.Register("IconHeight", typeof(double), typeof(IconGrid), new PropertyMetadata(1.0));
 
         public static readonly DependencyProperty GrowthAmountProperty =
             DependencyProperty.Register("GrowthAmount", typeof(int), typeof(IconGrid), new PropertyMetadata(1));
@@ -96,35 +96,71 @@ namespace SmashFront.Views.Controls
 
             for (var i = 0; i < IconNames.Count; i++)
             {
-                Rectangle box = new Rectangle();
-                box.Stroke = Brushes.White;
-                box.StrokeThickness = 2;
-                box.Margin = new Thickness(0, GrowthAmount, 0, GrowthAmount);
-                box.Opacity = 0.0;
-
-                box.Width = IconWidth;
-                box.Height = IconHeight;
-
-                DoubleAnimation appear = new DoubleAnimation(1.0, TimeSpan.FromSeconds(0.05));
-                appear.BeginTime = TimeSpan.FromSeconds(i * 0.05);
-                box.BeginAnimation(Rectangle.OpacityProperty, appear);
-
                 ImageBrush icon = FindResource(IconNames[i]) as ImageBrush;
-                box.Fill = icon;
-                box.Name = IconNames[i];
-
-                box.MouseEnter += Box_MouseEnter;
-                box.MouseLeave += Box_MouseLeave;
-                box.MouseLeftButtonDown += Box_MouseLeftButtonDown;
 
                 DoubleAnimation fade = new DoubleAnimation(1.0, TimeSpan.FromSeconds(0.1));
                 fade.BeginTime = TimeSpan.FromSeconds(0.20 + i * 0.05);
                 icon.BeginAnimation(ImageBrush.OpacityProperty, fade);
 
+                Rectangle box = new Rectangle() { Stroke = Brushes.White, StrokeThickness = 2, Opacity = 0.0,
+                                                  Width = IconWidth, Height = IconHeight, Fill = icon, Name = IconNames[i] };
+                box.Margin = new Thickness(0, GrowthAmount, 0, GrowthAmount);
+
+                DoubleAnimation appear = new DoubleAnimation(1.0, TimeSpan.FromSeconds(0.05));
+                appear.BeginTime = TimeSpan.FromSeconds(i * 0.05);
+                box.BeginAnimation(Rectangle.OpacityProperty, appear);
+
+                box.MouseEnter += Box_MouseEnter;
+                box.MouseLeave += Box_MouseLeave;
+                box.MouseLeftButtonDown += Box_MouseLeftButtonDown;
+
                 Grid.SetRow(box, i % 2);
                 Grid.SetColumn(box, i / 2);
 
                 MainGrid.Children.Add(box);
+            }
+        }
+
+        public void Deselect()
+        {
+            foreach (var child in MainGrid.Children)
+            {
+                Rectangle box = child as Rectangle;
+
+                if (box.ActualWidth > IconWidth || box.ActualHeight > IconHeight)
+                {
+                    box.BeginAnimation(Rectangle.MarginProperty, new ThicknessAnimation(new Thickness(0, 0, 0, 0), new Thickness(0, GrowthAmount, 0, GrowthAmount), TimeSpan.FromSeconds(0.1)));
+                    box.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(IconWidth + GrowthAmount, IconWidth, TimeSpan.FromSeconds(0.1)));
+                    box.BeginAnimation(Rectangle.HeightProperty, new DoubleAnimation(IconHeight + GrowthAmount, IconHeight, TimeSpan.FromSeconds(0.1)));
+                }
+            }
+
+            Rectangle selectedBox = Mouse.DirectlyOver as Rectangle;
+            if (selectedBox != null && MainGrid.Children.Contains(selectedBox))
+            {
+                Box_MouseEnter(selectedBox, null);
+            }
+        }
+
+        public void EnableControl()
+        {
+            foreach (var child in MainGrid.Children)
+            {
+                Rectangle box = child as Rectangle;
+                box.MouseEnter += Box_MouseEnter;
+                box.MouseLeave += Box_MouseLeave;
+                box.MouseLeftButtonDown += Box_MouseLeftButtonDown;
+            }
+        }
+
+        public void DisableControl()
+        {
+            foreach (var child in MainGrid.Children)
+            {
+                Rectangle box = child as Rectangle;
+                box.MouseEnter -= Box_MouseEnter;
+                box.MouseLeave -= Box_MouseLeave;
+                box.MouseLeftButtonDown -= Box_MouseLeftButtonDown;
             }
         }
 

@@ -1,12 +1,16 @@
 ﻿using SmashFront.Helpers;
+using SmashFront.Models;
 using SmashFront.ViewModels;
+using SmashFront.Views.Controls;
 using SmashFront.Views.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +21,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static SmashFront.ViewModels.Character;
 
 namespace SmashFront.Views.Pages
@@ -26,6 +31,9 @@ namespace SmashFront.Views.Pages
     /// </summary>
     public partial class CharacterSelectPage : Page
     {
+        private DispatcherTimer _timer;
+        private bool _characterSelected;
+
         public CharacterSelectPage()
         {
             InitializeComponent();
@@ -35,22 +43,13 @@ namespace SmashFront.Views.Pages
             this.Loaded += CharacterSelectPage_Loaded;
 
             CharacterIcons.IconNames = Character.GetCharacterNames();
+
             CharacterIcons.HoverTextChanged += (s, e) =>
             {
                 P1Border.Text = e.Text;
             };
-            CharacterIcons.SelectedTextChanged += (s, e) =>
-            {
-                Characters character = Character.GetCharacterFromName(e.Text);
-                string narratorName = Character.GetNarratorNameFromCharacter(character);
 
-                if (!String.IsNullOrEmpty(narratorName))
-                {
-                    var player = new MediaPlayer();
-                    player.Open(new Uri(@"C:\Users\Takaji\Documents\GitHub\SmashFront\SmashFront\Resources\Narrator\Names\" + narratorName + ".wav"));
-                    player.Play();
-                }
-            };
+            CharacterIcons.SelectedTextChanged += CharacterSelected;
         }
 
         public void CharacterSelectPage_Loaded(object sender, RoutedEventArgs e)
@@ -65,6 +64,10 @@ namespace SmashFront.Views.Pages
             P2Border.Width = availableWidth / 4;
             P3Border.Width = availableWidth / 4;
             P4Border.Width = availableWidth / 4;
+
+            double availableIconWidth = MenuGrid.ColumnDefinitions[1].ActualWidth - (CharacterIcons.GrowthAmount * 2 * CharacterIcons.ColumnCount);
+            CharacterIcons.IconWidth = availableIconWidth / CharacterIcons.ColumnCount;
+            CharacterIcons.IconHeight = availableIconWidth / CharacterIcons.ColumnCount;
 
             switch (MainWindow.PreviousPageTitle)
             {
@@ -85,32 +88,63 @@ namespace SmashFront.Views.Pages
                     break;
             }
 
-            for (Int32 i = 1; i <= 99; i++)
-            {
-                Stocks.Items.Add(i);
-            }
-            for (Int32 i = 1; i <= 20; i++)
-            {
-                TimeLimit.Items.Add(i + " MINUTES");
-            }
-            Items.Items.Add("Something");
-
-            //Modes.SelectedIndex = 0;
-            Stocks.SelectedIndex = 0;
-            TimeLimit.SelectedIndex = 0;
-            Items.SelectedIndex = 0;
-
             this.Cursor = Cursors.Pen;
 
             TopBorder.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(0.0, MenuGrid.ColumnDefinitions[1].ActualWidth, TimeSpan.FromSeconds(0.5)));
             BottomBorder.BorderWidth = MenuGrid.ColumnDefinitions[1].ActualWidth;
 
-            MenuGrid.MouseRightButtonDown += new MouseButtonEventHandler(OnRightClick);
+            this.MouseRightButtonDown += CharacterSelectPage_MouseRightButtonDown;
+            this.MouseRightButtonUp += CharacterSelectPage_MouseRightButtonUp;
         }
 
-        public void OnRightClick(object sender, MouseButtonEventArgs e)
+        private void CharacterSelected(object sender, TextEventArgs e)
         {
-            this.TransitionPage<MenuPage>(this.Title);
+            Characters character = Character.GetCharacterFromName(e.Text);
+            string narratorName = Character.GetNarratorNameFromCharacter(character);
+
+            if (!String.IsNullOrEmpty(narratorName))
+            {
+                var player = new MediaPlayer();
+                player.Open(new Uri(@"C:\Users\Takaji\Documents\GitHub\SmashFront\SmashFront\Resources\Narrator\Names\" + narratorName + ".wav"));
+                player.Play();
+            }
+
+            this.Cursor = Cursors.None;
+            _characterSelected = true;
+            CharacterIcons.DisableControl();
+
+            GameState state = new GameState();
+            state.LaunchGame();
+        }
+
+        private void CharacterSelectPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                GameState state = new GameState();
+                state.LaunchGame();
+            }
+        }
+
+        private void CharacterSelectPage_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Cursor = Cursors.Pen;
+            _characterSelected = false;
+            CharacterIcons.EnableControl();
+            CharacterIcons.Deselect();
+
+            _timer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(2) };
+            _timer.Tick += (s, args) =>
+            {
+                this.TransitionPage<MenuPage>(this.Title);
+            };
+
+            _timer.Start();
+        }
+
+        private void CharacterSelectPage_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _timer.Stop();
         }
     }
 }

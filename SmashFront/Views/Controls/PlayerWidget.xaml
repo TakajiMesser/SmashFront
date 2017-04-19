@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SmashFront.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel Name="Panel" Height="100" HorizontalAlignment="Stretch">
+    <DockPanel Name="Panel" HorizontalAlignment="Stretch">
         <Canvas Name="PanelCanvas">
         </Canvas>
     </DockPanel>

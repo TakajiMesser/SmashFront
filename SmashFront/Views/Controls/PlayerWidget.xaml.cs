@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace SmashFront.Views.Controls
 
     public partial class PlayerWidget : UserControl
     {
-        public string _text = "";
+        private string _text = "";
 
         public PlayerTypes PlayerType
         {
@@ -59,6 +60,13 @@ namespace SmashFront.Views.Controls
                 if (nameText != null)
                 {
                     nameText.Text = _text;
+
+                    var formattedText = new FormattedText(_text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight,
+                        new Typeface(nameText.FontFamily, nameText.FontStyle, nameText.FontWeight, nameText.FontStretch),
+                        nameText.FontSize, Brushes.Black);
+
+                    Canvas.SetLeft(nameText, (this.Width - formattedText.Width) / 2);
+                    Canvas.SetTop(nameText, (this.Height + formattedText.Height) / 2);
                 }
             }
         }
@@ -74,7 +82,7 @@ namespace SmashFront.Views.Controls
             Rectangle topBorder = new Rectangle() { Height = 2, Fill = Brushes.Gray };
             this.PanelCanvas.Children.Add(topBorder);
 
-            DoubleAnimation grow = new DoubleAnimation(0.0, this.Width, TimeSpan.FromSeconds(1));
+            DoubleAnimation grow = new DoubleAnimation(0.0, this.Width, TimeSpan.FromSeconds(0.6));
             if (PlayerType != PlayerTypes.Empty)
             {
                 grow.Completed += Grow_Completed;
@@ -84,14 +92,13 @@ namespace SmashFront.Views.Controls
 
         private void Grow_Completed(object sender, EventArgs e)
         {
-            TextBlock nameText = new TextBlock() { Name = "NameText", FontSize = 14, Foreground = Brushes.White, Opacity = 0.0 };
+            TextBlock nameText = new TextBlock() { Name = "NameText", FontSize = 24, Foreground = Brushes.White, Opacity = 0.0 };
             this.PanelCanvas.Children.Add(nameText);
 
             Rectangle bottomBorder = new Rectangle() { Height = 2, Width = this.Width, Fill = Brushes.Gray };
             this.PanelCanvas.Children.Add(bottomBorder);
-            Canvas.SetLeft(bottomBorder, 0);
 
-            DoubleAnimation move = new DoubleAnimation(0.0, 40.0, new Duration(TimeSpan.FromSeconds(1)));
+            DoubleAnimation move = new DoubleAnimation(0.0, 34.0, new Duration(TimeSpan.FromSeconds(0.4)));
             move.Completed += (s, args) =>
             {
                 foreach (var child in PanelCanvas.Children)
@@ -101,18 +108,17 @@ namespace SmashFront.Views.Controls
                     {
                         if (PlayerType == PlayerTypes.Player)
                         {
-                            border.Fill = Brushes.CornflowerBlue;
+                            border.Fill = Brushes.SlateGray;
                         }
                         else if (PlayerType == PlayerTypes.CPU)
                         {
-                            border.Fill = Brushes.Red;
+                            border.Fill = Brushes.DarkSlateGray;
                         }
                     }
 
                     nameText.Opacity = 1.0;
                 }
             };
-
             bottomBorder.BeginAnimation(Canvas.TopProperty, move);
         }
     }

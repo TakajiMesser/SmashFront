@@ -40,12 +40,12 @@
         <ImageBrush x:Key="Zelda" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Zelda.png"/>
     </Page.Resources>
 
-    <Grid x:Name="MenuGrid" Background="{StaticResource FinalDestinationBackground}">
+    <Grid x:Name="MenuGrid"  Background="{StaticResource FinalDestinationBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="40*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -57,11 +57,6 @@
         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
             <StackPanel x:Name="Settings" Orientation="Horizontal">
                 <TextBlock x:Name="Selection" Margin="12, 30, 320, 8" FontSize="36" Foreground="White"/>
-
-                <Controls:OptionSelector x:Name="ModeOptions" Margin="64, 40, 0, 0"></Controls:OptionSelector>
-                <ComboBox x:Name="Stocks" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
-                <ComboBox x:Name="TimeLimit" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
-                <ComboBox x:Name="Items" Margin="64, 40, 0, 0" FontSize="14" Opacity="0.8" Foreground="White"></ComboBox>
             </StackPanel>
             <Rectangle Name="TopBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"/>
         </StackPanel>
@@ -75,14 +70,12 @@
 
         <Controls:IconGrid x:Name="CharacterIcons" Grid.Row="3" Grid.Column="1"
                         HorizontalAlignment="Stretch" GrowthAmount="10"
-                        RowCount="2" ColumnCount="13"
-                        IconWidth="100" IconHeight="100"></Controls:IconGrid>
+                        RowCount="2" ColumnCount="13"></Controls:IconGrid>
 
         <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
             <TextBlock Name="Names" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
             <Controls:Border x:Name="BottomBorder"></Controls:Border>
         </StackPanel>
-
     </Grid>
 </Page>
  
