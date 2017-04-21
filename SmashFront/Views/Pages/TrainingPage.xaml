@@ -1,0 +1,50 @@
+﻿<Page
+      xmlns:local="clr-namespace:SmashFront.Views.Pages"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+      xmlns:Controls="clr-namespace:SmashFront.Views.Controls"
+      x:Class="SmashFront.Views.Pages.TrainingPage" 
+      mc:Ignorable="d" 
+      Title="TrainingPage" Background="Black" Opacity="0.0">
+    <Page.Resources>
+        <ImageBrush x:Key="BattlefieldBackground" Stretch="UniformToFill" Opacity="0.4" ImageSource="/Resources/battlefield_by_daveartwork.png"/>
+        <ImageBrush x:Key="FinalDestinationBackground" Stretch="UniformToFill" Opacity="0.4" ImageSource="/Resources/final_destination.png"/>
+    </Page.Resources>
+
+    <Grid x:Name="MenuGrid"  Background="{StaticResource FinalDestinationBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <StackPanel x:Name="Settings" Orientation="Horizontal">
+                <TextBlock x:Name="Selection" Margin="12, 30, 320, 8" FontSize="36" Foreground="White">TRAINING</TextBlock>
+            </StackPanel>
+            <Rectangle Name="TopBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"/>
+        </StackPanel>
+
+        <StackPanel Name="PlayerBorders" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Controls:PlayerWidget x:Name="P1Border" PlayerType="Player" Slot="1"></Controls:PlayerWidget>
+        </StackPanel>
+
+        <Controls:CSS x:Name="CharacterGrid" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch"></Controls:CSS>
+
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
+            <TextBlock Name="Names" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
+            <Controls:Border x:Name="BottomBorder"></Controls:Border>
+        </StackPanel>
+    </Grid>
+</Page>
+ 

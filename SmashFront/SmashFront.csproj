@@ -118,9 +118,10 @@
     <Compile Include="Views\Controls\Border.xaml.cs">
       <DependentUpon>Border.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\IconGrid.xaml.cs">
-      <DependentUpon>IconGrid.xaml</DependentUpon>
+    <Compile Include="Views\Controls\CSS.xaml.cs">
+      <DependentUpon>CSS.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\IconGrid.cs" />
     <Compile Include="Views\Controls\MenuOptions.xaml.cs">
       <DependentUpon>MenuOptions.xaml</DependentUpon>
     </Compile>
@@ -130,8 +131,8 @@
     <Compile Include="Views\Controls\PlayerWidget.xaml.cs">
       <DependentUpon>PlayerWidget.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\CharacterSelectPage.xaml.cs">
-      <DependentUpon>CharacterSelectPage.xaml</DependentUpon>
+    <Compile Include="Views\Pages\TrainingPage.xaml.cs">
+      <DependentUpon>TrainingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Intro.xaml.cs">
       <DependentUpon>Intro.xaml</DependentUpon>
@@ -155,7 +156,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\IconGrid.xaml">
+    <Page Include="Views\Controls\CSS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,7 +168,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\CharacterSelectPage.xaml">
+    <Page Include="Views\Pages\TrainingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

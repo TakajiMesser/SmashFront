@@ -99,7 +99,7 @@ namespace SmashFront.Views.Pages
 
                 case "TRAINING":
                     Options.DisableControl();
-                    this.TransitionPage<CharacterSelectPage>("TRAINING", 0.5);
+                    this.TransitionPage<TrainingPage>("TRAINING", 0.5);
                     return;
 
                 case "SETTINGS":
@@ -108,7 +108,7 @@ namespace SmashFront.Views.Pages
 
                 case "LOCAL":
                     Options.DisableControl();
-                    this.TransitionPage<CharacterSelectPage>("LOCAL", 0.5);
+                    this.TransitionPage<TrainingPage>("LOCAL", 0.5);
                     return;
 
                 case "QUIT":

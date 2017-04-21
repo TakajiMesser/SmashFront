@@ -8,22 +8,26 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Storyboard x:Key="TransitionForward" Completed="MenuOptions_Transitioned">
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="-500.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="-600.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.3"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.FontSize)" From="72" To="140" Duration="0:0:0.4"></DoubleAnimation>
 
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="500.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="600.0" To="0.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.FontSize)" From="2" To="72" Duration="0:0:0.4"></DoubleAnimation>
 
             <DoubleAnimation Storyboard.TargetName="CurrentOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.8" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
             <DoubleAnimation Storyboard.TargetName="NextOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="0.8" Duration="0:0:0.6"></DoubleAnimation>
         </Storyboard>
 
         <Storyboard x:Key="TransitionBackward" Completed="MenuOptions_Transitioned">
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="500.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(Canvas.Left)" From="0.0" To="600.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="1.0" To="0.0" Duration="0:0:0.3"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="CurrentTitle" Storyboard.TargetProperty="(TextBlock.FontSize)" From="72" To="2" Duration="0:0:0.4"></DoubleAnimation>
 
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="-500.0" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.6"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(Canvas.Left)" From="-600.0" To="0.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="1.0" Duration="0:0:0.4"></DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="NextTitle" Storyboard.TargetProperty="(TextBlock.FontSize)" From="140" To="72" Duration="0:0:0.4"></DoubleAnimation>
 
             <DoubleAnimation Storyboard.TargetName="CurrentOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.8" To="0.0" Duration="0:0:0.6"></DoubleAnimation>
             <DoubleAnimation Storyboard.TargetName="NextOptions" Storyboard.TargetProperty="(TextBlock.Opacity)" From="0.0" To="0.8" Duration="0:0:0.6"></DoubleAnimation>
@@ -37,8 +41,8 @@
         </Canvas>
 
         <Canvas Name="OptionCanvas" Margin="0,0,0,10" Height="220">
-            <StackPanel Name="CurrentOptions" Orientation="Vertical" Opacity="1.0"></StackPanel>
-            <StackPanel Name="NextOptions" Orientation="Vertical" Opacity="1.0"></StackPanel>
+            <StackPanel Name="CurrentOptions" Orientation="Vertical" Opacity="0.8"></StackPanel>
+            <StackPanel Name="NextOptions" Orientation="Vertical" Opacity="0.8"></StackPanel>
         </Canvas>
     </StackPanel>
 </UserControl>

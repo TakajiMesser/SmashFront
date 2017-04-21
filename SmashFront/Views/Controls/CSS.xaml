@@ -1,17 +1,12 @@
-﻿<Page
-      xmlns:local="clr-namespace:SmashFront.Views.Pages"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
-      xmlns:Controls="clr-namespace:SmashFront.Views.Controls"
-      x:Class="SmashFront.Views.Pages.CharacterSelectPage" 
-      mc:Ignorable="d" 
-      Title="CharacterSelectPage" Background="Black" Opacity="0.0">
-    <Page.Resources>
-        <ImageBrush x:Key="BattlefieldBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/battlefield_by_daveartwork.png"/>
-        <ImageBrush x:Key="FinalDestinationBackground" Stretch="UniformToFill" Opacity="0.6" ImageSource="/Resources/final_destination.png"/>
+﻿<UserControl x:Class="SmashFront.Views.Controls.CSS"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmashFront.Views.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
         <ImageBrush x:Key="Bowser" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Bowser.png"/>
         <ImageBrush x:Key="DonkeyKong" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/DonkeyKong.png"/>
         <ImageBrush x:Key="DrMario" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/DrMario.png"/>
@@ -38,44 +33,7 @@
         <ImageBrush x:Key="Yoshi" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Yoshi.png"/>
         <ImageBrush x:Key="YoungLink" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/YoungLink.png"/>
         <ImageBrush x:Key="Zelda" Stretch="Fill" Opacity="0.0" ImageSource="/Resources/Character Select/Zelda.png"/>
-    </Page.Resources>
-
-    <Grid x:Name="MenuGrid"  Background="{StaticResource FinalDestinationBackground}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
-            <StackPanel x:Name="Settings" Orientation="Horizontal">
-                <TextBlock x:Name="Selection" Margin="12, 30, 320, 8" FontSize="36" Foreground="White"/>
-            </StackPanel>
-            <Rectangle Name="TopBorder" HorizontalAlignment="Stretch" Height="2" Fill="White"/>
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-            <Controls:PlayerWidget x:Name="P1Border" PlayerType="Player" Slot="1" Margin="0, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P2Border" PlayerType="Player" Slot="2" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P3Border" PlayerType="Player" Slot="3" Margin="20, 0, 20, 0"></Controls:PlayerWidget>
-            <Controls:PlayerWidget x:Name="P4Border" PlayerType="Player" Slot="4" Margin="20, 0, 0, 0"></Controls:PlayerWidget>
-        </StackPanel>
-
-        <Controls:IconGrid x:Name="CharacterIcons" Grid.Row="3" Grid.Column="1"
-                        HorizontalAlignment="Stretch" GrowthAmount="10"
-                        RowCount="2" ColumnCount="13"></Controls:IconGrid>
-
-        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
-            <TextBlock Name="Names" Margin="10,0,0,10" FontSize="10" Foreground="White"></TextBlock>
-            <Controls:Border x:Name="BottomBorder"></Controls:Border>
-        </StackPanel>
+    </UserControl.Resources>
+    <Grid Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0">
     </Grid>
-</Page>
- 
+</UserControl>
